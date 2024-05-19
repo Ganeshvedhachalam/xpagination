@@ -1,85 +1,70 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
-import "./Table.css"
-function DataTable(){
-const[data , SetData] = useState([])
-const [currentpage ,setCurrentpage]=useState(1);
-const rowsperpage=10
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./Table.css";
 
-useEffect(()=>{
-    console.log(`Initial Page: ${currentpage}`); 
-    const FetchData = async ()=>{
-        try {
-        const response =await axios.get("https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json")
-        SetData(response.data)
-        } catch (error) {
-            console.error("not fetched data",error);
-            alert("failed to fetch data")
-        }
-        
-    }
-    FetchData()
+function DataTable() {
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 10;
 
-},[currentpage])
+  useEffect(() => {
+    console.log(`Initial Page: ${currentPage}`);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json");
+        setData(response.data);
+        setCurrentPage(1); // Reset current page to 1 when new data is fetched
+      } catch (error) {
+        console.error("Failed to fetch data", error);
+        alert("Failed to fetch data");
+      }
+    };
+    fetchData();
+  }, []);
 
-const HandlePrevious = ()=>{
-
-     setCurrentpage((prevpage) =>  { const previouspage = Math.max(prevpage-1,1);
-   console.log(  `previouspage : ${previouspage}`)
-return  previouspage})
-
-
-}
-const maxpage = Math.ceil(data.length/rowsperpage);
-
-const HandleNext = () => {
-
-    setCurrentpage(prevPage => prevPage+1);
-    console.log(  `next clicked: ${currentpage}`)
-    
+  const HandlePrevious = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
+  const maxPage = Math.ceil(data.length / rowsPerPage);
 
-   const startIndex=(currentpage -1 )*rowsperpage;
-   const currentPageData=data.slice(startIndex,startIndex+rowsperpage)
+  const HandleNext = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, maxPage));
+  };
 
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const currentPageData = data.slice(startIndex, startIndex + rowsPerPage);
 
-
-    return (
-        <div>
-             <h2>Employee Data Table</h2>
-            <table >
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name </th>
-                        <th>Email</th>
-                        <th>Role</th>
-                    </tr>
-                 
-                </thead>
-                <tbody>
-                    {currentPageData.map((item)=>(
-                        <tr key={item.id}>
-                        <td> {item.id}</td>
-                        <td> {item.name}</td>
-                        <td> {item.email}</td>
-                        <td> {item.role}</td>
-                    </tr>
-
-                    ))}
-                    
-
-                </tbody>
-            </table>
-            <div className="pagination">
-            <button onClick={HandlePrevious} disabled={currentpage===1}>Previous</button>
-            <span> {currentpage} </span>
-            <button onClick={HandleNext} disabled={currentpage === maxpage}>Next</button>
-            </div>
-
-
-        </div>
-    )
+  return (
+    <div>
+      <h2>Employee Data Table</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentPageData.map((item) => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{item.name}</td>
+              <td>{item.email}</td>
+              <td>{item.role}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="pagination">
+        <button onClick={HandlePrevious} disabled={currentPage === 1}>Previous</button>
+        <span> {currentPage} </span>
+        <button onClick={HandleNext} disabled={currentPage === maxPage}>Next</button>
+      </div>
+    </div>
+  );
 }
+
 export default DataTable;
