@@ -40,7 +40,7 @@ const HandleNext=()=>{
 
     return (
         <div>
-             <h2>employee data</h2>
+             <h2>Employee Data Table</h2>
             <table >
                 <thead>
                     <tr>
