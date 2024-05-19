@@ -7,6 +7,7 @@ const [currentpage ,setCurrentpage]=useState(1);
 const rowsperpage=10
 
 useEffect(()=>{
+    console.log(`Initial Page: ${currentpage}`); 
     const FetchData = async ()=>{
         try {
         const response =await axios.get("https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json")
@@ -21,14 +22,28 @@ useEffect(()=>{
 
 },[])
 
-const HandlePrevious =()=>{
-    setCurrentpage(prevpage => Math.max(prevpage-1,1))
-    console.log(  `previous${currentpage}`)
+
+useEffect(() => {
+    console.log(`Current Page: ${currentpage}`);
+  }, [currentpage]);
+
+const HandlePrevious = ()=>{
+
+     setCurrentpage((prevpage) =>  { const previouspage = Math.max(prevpage-1,1);
+   console.log(  `previouspage : ${previouspage}`)
+return  previouspage})
+
+
 }
 const maxpage = Math.ceil(data.length/rowsperpage);
 
 const HandleNext = () => {
-    setCurrentpage((prevPage) => Math.min(prevPage + 1, maxpage));
+    setCurrentpage((prevPage) => {
+      const nextPage = Math.min(prevPage + 1, maxpage);
+      console.log(`Next Page: ${nextPage}`); // Add this line for debugging
+      return nextPage;
+    });
+
   };
 
 
