@@ -26,11 +26,13 @@ function DataTable() {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
-  const maxPage = Math.ceil(data.length / rowsPerPage);
+
 
   const HandleNext = () => {
-    setCurrentPage((prevPage) => Math.min(prevPage + 1, maxPage));
-  };
+    setCurrentPage((prevPage) => {
+        const maxPage = Math.ceil(data.length / rowsPerPage);
+    return  Math.min(prevPage + 1, maxPage)})
+  }
 
   const startIndex = (currentPage - 1) * rowsPerPage;
   const currentPageData = data.slice(startIndex, startIndex + rowsPerPage);
@@ -59,9 +61,13 @@ function DataTable() {
         </tbody>
       </table>
       <div className="pagination">
-        <button onClick={HandlePrevious} disabled={currentPage === 1}>Previous</button>
+        <button onClick={HandlePrevious} 
+        // disabled={currentPage === 1}
+        >Previous</button>
         <span> {currentPage} </span>
-        <button onClick={HandleNext} disabled={currentPage === maxPage}>Next</button>
+        <button onClick={HandleNext} 
+        // disabled={currentPage === maxPage}
+        >Next</button>
       </div>
     </div>
   );
