@@ -20,12 +20,7 @@ useEffect(()=>{
     }
     FetchData()
 
-},[])
-
-
-useEffect(() => {
-    console.log(`Current Page: ${currentpage}`);
-  }, [currentpage]);
+},[currentpage])
 
 const HandlePrevious = ()=>{
 
@@ -38,12 +33,10 @@ return  previouspage})
 const maxpage = Math.ceil(data.length/rowsperpage);
 
 const HandleNext = () => {
-    setCurrentpage((prevPage) => {
-      const nextPage = Math.min(prevPage + 1, maxpage);
-      console.log(`Next Page: ${nextPage}`); // Add this line for debugging
-      return nextPage;
-    });
 
+    setCurrentpage(prevPage => prevPage+1);
+    console.log(  `next clicked: ${currentpage}`)
+    
   };
 
 
