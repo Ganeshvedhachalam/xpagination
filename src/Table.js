@@ -81,7 +81,7 @@ const HandleNext = () => {
             </table>
             <div className="pagination">
             <button onClick={HandlePrevious} disabled={currentpage===1}>Previous</button>
-            <span>{currentpage}</span>
+            <span> {currentpage} </span>
             <button onClick={HandleNext} disabled={currentpage === maxpage}>Next</button>
             </div>
 
