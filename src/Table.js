@@ -44,10 +44,10 @@ const HandleNext=()=>{
             <table >
                 <thead>
                     <tr>
-                        <th>id</th>
-                        <th>name </th>
-                        <th>email</th>
-                        <th>role</th>
+                        <th>ID</th>
+                        <th>Name </th>
+                        <th>Email</th>
+                        <th>Role</th>
                     </tr>
                  
                 </thead>
@@ -66,9 +66,9 @@ const HandleNext=()=>{
                 </tbody>
             </table>
             <div className="pagination">
-            <button onClick={HandlePrevious} disabled={currentpage===1}>previous</button>
+            <button onClick={HandlePrevious} disabled={currentpage===1}>Previous</button>
             <span>{currentpage}</span>
-            <button onClick={HandleNext} disabled={currentpage === maxpage}>next</button>
+            <button onClick={HandleNext} disabled={currentpage === maxpage}>Next</button>
             </div>
 
 
