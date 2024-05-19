@@ -13,7 +13,7 @@ useEffect(()=>{
         SetData(response.data)
         } catch (error) {
             console.error("not fetched data",error);
-            alert("failed data fetch")
+            alert("failed to fetch data")
         }
         
     }
