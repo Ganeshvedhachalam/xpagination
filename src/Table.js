@@ -13,6 +13,7 @@ useEffect(()=>{
         SetData(response.data)
         } catch (error) {
             console.error("not fetched data",error);
+            alert("failed data fetch")
         }
         
     }
@@ -25,14 +26,12 @@ const HandlePrevious =()=>{
     console.log(  `previous${currentpage}`)
 }
 const maxpage = Math.ceil(data.length/rowsperpage);
-const HandleNext=()=>{
-   
-    setCurrentpage(prevpage =>
-        {
-      return Math.min(prevpage+1,maxpage) })
-      console.log(  `next${currentpage}`)
 
-} 
+const HandleNext = () => {
+    setCurrentpage((prevPage) => Math.min(prevPage + 1, maxpage));
+  };
+
+
    const startIndex=(currentpage -1 )*rowsperpage;
    const currentPageData=data.slice(startIndex,startIndex+rowsperpage)
 
